@@ -36,6 +36,7 @@ public class CodeChef extends AppCompatActivity {
         recyclerView.setHasFixedSize(true);
         new openurl().execute();
         new parseJson().execute();
+        new parssefuturejson().execute();
         responseList =new ArrayList<>();
         gridLayoutManager =new GridLayoutManager(this,GridLayoutManager.VERTICAL);
         recyclerView.setLayoutManager(gridLayoutManager);
@@ -118,4 +119,46 @@ public class CodeChef extends AppCompatActivity {
            return null;
        }
    }
+    private  class parssefuturejson extends AsyncTask<String,Void,String>
+    {
+        @Override
+        protected void onPostExecute(String s) {
+            adapter.notifyDataSetChanged();
+        }
+
+        @Override
+        protected String doInBackground(String... strings) {
+            OkHttpClient client =new OkHttpClient();
+            Request request =new Request.Builder().url("http://3.219.6.94/phpcurl/future.json").build();
+            try {
+                Response response=client.newCall(request).execute();
+                JSONArray array= null;
+                try {
+                    array = new JSONArray(response.body().string());
+                } catch (JSONException e) {
+
+                }
+                for(int i=0;i<array.length();i++)
+                {
+                    JSONArray array1= null;
+                    try {
+                        array1 = array.getJSONArray(i);
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                    jsonResponse response1= null;
+                    try {
+                        response1 = new jsonResponse(array1.getString(0),array1.getString(1),array1.getString(2),array1.getString(3));
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                    responseList.add(response1);
+
+                }
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            return null;
+        }
+    }
 }

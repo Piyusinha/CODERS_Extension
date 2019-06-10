@@ -18,7 +18,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         btn_profile = findViewById(R.id.buttonprofile);
 //        btn_education = findViewById(R.id.buttoneducation);
-//        btn_health = findViewById(R.id.buttonhealth);
+        btn_health = findViewById(R.id.buttonhealth);
 //        btn_goals = findViewById(R.id.buttongoals);
 //        btn_comfort = findViewById(R.id.buttoncomfort);
 //        btn_finance = findViewById(R.id.buttonfinance);
@@ -48,13 +48,15 @@ public class MainActivity extends AppCompatActivity {
 //                Toast.makeText(MainActivity.this, "COMFORT", Toast.LENGTH_SHORT).show();
 //            }
 //        });
-//        btn_health.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                Toast.makeText(MainActivity.this, "HEALTH", Toast.LENGTH_SHORT).show();
-//                Log.d(TAG, "onClick: health ");
-//            }
-//        });
+        btn_health.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(MainActivity.this, "Code Forces", Toast.LENGTH_SHORT).show();
+                Log.d(TAG, "onClick: health ");
+                Intent k1 = new Intent(MainActivity.this, CodeForces.class);
+                startActivity(k1);
+            }
+        });
 //        btn_education.setOnClickListener(new View.OnClickListener() {
 //            @Override
 //            public void onClick(View v) {

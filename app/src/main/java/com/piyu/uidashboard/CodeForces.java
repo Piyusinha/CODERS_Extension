@@ -1,11 +1,14 @@
 package com.piyu.uidashboard;
 
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
+import android.view.View;
+import android.widget.Button;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -32,15 +35,26 @@ public class CodeForces extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_code_forces);
+        Button btnback=(Button) findViewById(R.id.codeforcetomain);
        forcesRecyclerView=(RecyclerView) findViewById(R.id.codrecycler);
        forcesRecyclerView.setHasFixedSize(true);
        new openurl().execute();
        new parseJson().execute();
+
        codeForcesResponseslist=new ArrayList<>();
        gridLayoutManager =new GridLayoutManager(this,GridLayoutManager.VERTICAL);
        forcesRecyclerView.setLayoutManager(gridLayoutManager);
        adapter=new CodeForcesAdapter(this,codeForcesResponseslist);
       forcesRecyclerView.setAdapter(adapter);
+      btnback.setOnClickListener(new View.OnClickListener() {
+          @Override
+          public void onClick(View v) {
+              Intent k=new Intent(CodeForces.this,MainActivity.class);
+              k.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK |Intent.FLAG_ACTIVITY_CLEAR_TASK);
+              startActivity(k);
+              overridePendingTransition(R.anim.slide_in_left,R.anim.slide_out_right);
+          }
+      });
     }
     private class openurl extends AsyncTask<String,Void, String>
     {

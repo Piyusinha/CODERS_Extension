@@ -6,7 +6,10 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.Toast;
+
+import com.google.firebase.auth.FirebaseAuth;
 
 public class MainActivity extends AppCompatActivity {
     private static final String TAG = "MainActivity";
@@ -17,6 +20,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         btn_profile = findViewById(R.id.buttonprofile);
+       Button logout=(Button)findViewById(R.id.maintologin);
 //        btn_education = findViewById(R.id.buttoneducation);
         btn_health = findViewById(R.id.buttonhealth);
 //        btn_goals = findViewById(R.id.buttongoals);
@@ -27,9 +31,21 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Toast.makeText(MainActivity.this, "CodeChef", Toast.LENGTH_SHORT).show();
                 Intent k = new Intent(MainActivity.this, CodeChef.class);
+                k.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK |Intent.FLAG_ACTIVITY_CLEAR_TASK);
                 startActivity(k);
+                overridePendingTransition(R.anim.slide_in_right,R.anim.slide_out_left);
             }
         });
+         logout.setOnClickListener(new View.OnClickListener() {
+             @Override
+             public void onClick(View v) {
+                    FirebaseAuth.getInstance().signOut();
+                 Intent k=new Intent(MainActivity.this,otp.class);
+                 k.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK |Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                 startActivity(k);
+                 overridePendingTransition(R.anim.slide_in_left,R.anim.slide_out_right);
+             }
+         });
 //        btn_finance.setOnClickListener(new View.OnClickListener() {
 //            @Override
 //            public void onClick(View v) {
@@ -55,6 +71,8 @@ public class MainActivity extends AppCompatActivity {
                 Log.d(TAG, "onClick: health ");
                 Intent k1 = new Intent(MainActivity.this, CodeForces.class);
                 startActivity(k1);
+                k1.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK |Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                overridePendingTransition(R.anim.slide_in_right,R.anim.slide_out_left);
             }
         });
 //        btn_education.setOnClickListener(new View.OnClickListener() {
@@ -63,5 +81,16 @@ public class MainActivity extends AppCompatActivity {
 //                Toast.makeText(MainActivity.this, "EDUCATION", Toast.LENGTH_SHORT).show();
 //            }
 //        });
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        if(FirebaseAuth.getInstance().getCurrentUser()==null )
+        {
+            Intent k=new Intent(MainActivity.this,otp.class);
+                  k.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK |Intent.FLAG_ACTIVITY_CLEAR_TASK);
+            startActivity(k);
+        }
     }
 }

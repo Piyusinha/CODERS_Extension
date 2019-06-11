@@ -10,17 +10,17 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
+
         <TextView
-            android:layout_width="240dp"
-            android:layout_height="43dp"
             android:id="@+id/codeforcesname"
-            android:text="NAME"
+            android:layout_width="240dp"
+            android:layout_height="wrap_content"
             android:layout_marginLeft="80dp"
             android:gravity="center"
+            android:text="NAME"
             android:textAlignment="center"
-            android:textStyle="bold"
             android:textSize="20sp"
-            />
+            android:textStyle="bold" />
 
         <TextView
             android:id="@+id/writername"
@@ -28,7 +28,7 @@
             android:layout_width="134dp"
             android:layout_height="43dp"
             android:layout_marginLeft="130dp"
-            android:layout_marginTop="35dp"
+            android:layout_marginTop="50dp"
 
             android:gravity="center"
 

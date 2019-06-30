@@ -4,30 +4,56 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/backgroundf"
+    android:background="@drawable/onback2"
 
     tools:context=".otp">
+<Button
+    android:id="@+id/otptoback"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_marginStart="16dp"
+    android:layout_marginTop="10dp"
+   android:background="@android:color/transparent"
+    app:layout_constraintBottom_toTopOf="@+id/linearLayout1"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintTop_toTopOf="parent"
+    app:layout_constraintVertical_bias="0.022"/>
+
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="35dp"
+        android:layout_height="43dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="10dp"
+        android:src="@drawable/keyback"
+        app:layout_constraintBottom_toTopOf="@+id/linearLayout1"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.022" />
+
 
     <LinearLayout
         android:id="@+id/linearLayout1"
-      android:visibility="gone"
         android:layout_width="match_parent"
-        android:layout_height="250dp"
+        android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
         android:orientation="vertical"
+        android:visibility="visible"
         app:layout_constraintBottom_toTopOf="@+id/button"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.898">
+        app:layout_constraintVertical_bias="0.91">
 
         <TextView
-            android:layout_width="150dp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="8dp"
+            android:layout_marginLeft="16dp"
             android:layout_marginTop="5dp"
+            android:fontFamily="@font/orbitronbold"
             android:text="Full Name"
+            android:textColor="@android:color/white"
             android:textSize="30sp"
             android:textStyle="bold"></TextView>
         <!--android:layout_marginBottom="50sp"/>-->
@@ -41,14 +67,19 @@
             android:layout_marginEnd="25dp"
             android:background="@drawable/edittext"
             android:hint="What's Your Name Coder?"
-            android:padding="15dp" />
+            android:padding="15dp"
+            android:textColor="@android:color/white"
+
+            android:textColorHint="@android:color/white" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="8dp"
+            android:layout_marginLeft="16dp"
             android:layout_marginTop="10dp"
+            android:fontFamily="@font/orbitronbold"
             android:text="Contact No."
+            android:textColor="@android:color/white"
             android:textSize="30sp"
             android:textStyle="bold"></TextView>
         <!--android:layout_marginBottom="50sp"/>-->
@@ -60,47 +91,52 @@
             android:layout_marginTop="5dp"
             android:layout_marginEnd="25dp"
             android:background="@drawable/edittext"
-            android:hint="Let's Verify You Coder!! Enter Your No. With +91"
+            android:hint="Let's Verify You Coder!"
             android:inputType="phone"
-            android:padding="15dp" />
+            android:padding="15dp"
+            android:textColor="@android:color/white"
+            android:textColorHint="@android:color/white" />
 
     </LinearLayout>
 
     <LinearLayout
         android:id="@+id/linearLayout2"
-        android:visibility="gone"
         android:layout_width="match_parent"
         android:layout_height="250dp"
         android:layout_marginTop="8dp"
         android:orientation="vertical"
+        android:visibility="gone"
         app:layout_constraintBottom_toTopOf="@+id/button"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.867">
+        app:layout_constraintVertical_bias="1.0">
 
         <TextView
 
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
             android:layout_marginTop="100dp"
+            android:fontFamily="@font/orbitronbold"
             android:text="Enter Your 6-Digit OTP"
-            android:textSize="30sp"
-            android:layout_marginLeft="10dp"/>
+
+            android:textColor="@android:color/white"
+            android:textSize="25sp" />
 
         <!--<com.dpizarro.pinview.library.PinView-->
-            <!--android:id="@+id/pinView"-->
-            <!--android:layout_width="200dp"-->
-            <!--android:layout_height="200dp"-->
-            <!--android:layout_marginLeft="95dp"-->
-            <!--android:layout_marginTop="30dp"-->
-            <!--app:drawablePinBox="@drawable/custombox"-->
-            <!--app:numberCharacters="2"-->
-            <!--app:numberPinBoxes="4"-->
-            <!--app:password="true"-->
-            <!--app:split="-"-->
-            <!--app:textSizePinBox="40sp"></com.dpizarro.pinview.library.PinView>-->
+        <!--android:id="@+id/pinView"-->
+        <!--android:layout_width="200dp"-->
+        <!--android:layout_height="200dp"-->
+        <!--android:layout_marginLeft="95dp"-->
+        <!--android:layout_marginTop="30dp"-->
+        <!--app:drawablePinBox="@drawable/custombox"-->
+        <!--app:numberCharacters="2"-->
+        <!--app:numberPinBoxes="4"-->
+        <!--app:password="true"-->
+        <!--app:split="-"-->
+        <!--app:textSizePinBox="40sp"></com.dpizarro.pinview.library.PinView>-->
         <com.chaos.view.PinView
             android:id="@+id/pinview"
             style="@style/PinWidget.PinView"
@@ -109,11 +145,12 @@
             android:layout_marginLeft="30dp"
             android:inputType="number"
             android:padding="20dp"
+            android:textColor="@android:color/white"
             app:itemCount="6"
             app:lineColor="@android:color/darker_gray"
-            app:viewType="rectangle"
-            />
+            app:viewType="rectangle" />
     </LinearLayout>
+
     <Button
         android:id="@+id/button"
         android:layout_width="250dp"
@@ -123,6 +160,7 @@
         android:layout_marginEnd="8dp"
         android:layout_marginBottom="96dp"
         android:background="@drawable/button_design"
+        android:fontFamily="@font/orbitronblack"
         android:foreground="?attr/selectableItemBackground"
         android:text="LET'S GO"
         android:textColor="@android:color/white"
@@ -131,5 +169,38 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.496"
         app:layout_constraintStart_toStartOf="parent" />
+
+    <ProgressBar
+        android:id="@+id/progrss"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginBottom="8dp"
+        android:visibility="gone"
+
+
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/button" />
+
+    <TextView
+        android:id="@+id/textView3"
+        android:layout_width="wrap_content"
+        android:layout_height="27dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="8dp"
+        android:fontFamily="@font/orbitronbold"
+        android:text="Back"
+        android:textColor="@android:color/white"
+        android:textSize="20dp"
+        app:layout_constraintBottom_toTopOf="@+id/linearLayout1"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toEndOf="@+id/imageView"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.053" />
 
 </android.support.constraint.ConstraintLayout>

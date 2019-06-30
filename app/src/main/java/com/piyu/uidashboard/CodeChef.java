@@ -9,6 +9,7 @@ import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ProgressBar;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -32,10 +33,13 @@ public class CodeChef extends AppCompatActivity {
     private RecyclerView recyclerView;
     private GridLayoutManager gridLayoutManager;
     private  CustomAdapter adapter;
+    private ProgressBar progressBar;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_code_chef);
+        progressBar=(ProgressBar) findViewById(R.id.codechefprogress);
+        progressBar.setVisibility(View.VISIBLE);
         Button btnback=(Button)findViewById(R.id.codecheftomain);
         recyclerView=(RecyclerView) findViewById(R.id.codechefrecycler);
         recyclerView.setHasFixedSize(true);
@@ -46,7 +50,10 @@ public class CodeChef extends AppCompatActivity {
         gridLayoutManager =new GridLayoutManager(this,GridLayoutManager.VERTICAL);
         recyclerView.setLayoutManager(gridLayoutManager);
         adapter =new CustomAdapter(this ,responseList);
+
         recyclerView.setAdapter(adapter);
+
+
         btnback.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -95,6 +102,7 @@ public class CodeChef extends AppCompatActivity {
        @Override
        protected void onPostExecute(String s) {
            adapter.notifyDataSetChanged();
+           progressBar.setVisibility(View.GONE);
        }
 
        @Override
@@ -137,6 +145,8 @@ public class CodeChef extends AppCompatActivity {
         @Override
         protected void onPostExecute(String s) {
             adapter.notifyDataSetChanged();
+
+
         }
 
         @Override

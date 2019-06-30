@@ -13,7 +13,7 @@ import com.google.firebase.auth.FirebaseAuth;
 
 public class MainActivity extends AppCompatActivity {
     private static final String TAG = "MainActivity";
-    Button btn_profile, btn_education, btn_health, btn_goals, btn_finance, btn_comfort;
+    Button btn_profile, btn_hkr, btn_health, btn_goals, btn_finance, btn_comfort;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -21,7 +21,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         btn_profile = findViewById(R.id.buttonprofile);
        Button logout=(Button)findViewById(R.id.maintologin);
-//        btn_education = findViewById(R.id.buttoneducation);
+        btn_hkr = findViewById(R.id.buttonphacker);
         btn_health = findViewById(R.id.buttonhealth);
 //        btn_goals = findViewById(R.id.buttongoals);
 //        btn_comfort = findViewById(R.id.buttoncomfort);
@@ -44,6 +44,16 @@ public class MainActivity extends AppCompatActivity {
                  k.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK |Intent.FLAG_ACTIVITY_CLEAR_TASK);
                  startActivity(k);
                  overridePendingTransition(R.anim.slide_in_left,R.anim.slide_out_right);
+             }
+         });
+         btn_hkr.setOnClickListener(new View.OnClickListener() {
+             @Override
+             public void onClick(View v) {
+                 Toast.makeText(MainActivity.this, "HackerRank", Toast.LENGTH_SHORT).show();
+                 Intent k = new Intent(MainActivity.this, hackerranksite.class);
+                 k.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK |Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                 startActivity(k);
+                 overridePendingTransition(R.anim.slide_in_right,R.anim.slide_out_left);
              }
          });
 //        btn_finance.setOnClickListener(new View.OnClickListener() {
@@ -88,7 +98,7 @@ public class MainActivity extends AppCompatActivity {
         super.onStart();
         if(FirebaseAuth.getInstance().getCurrentUser()==null )
         {
-            Intent k=new Intent(MainActivity.this,otp.class);
+            Intent k=new Intent(MainActivity.this,onAppOpen.class);
                   k.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK |Intent.FLAG_ACTIVITY_CLEAR_TASK);
             startActivity(k);
         }

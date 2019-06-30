@@ -11,6 +11,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.chaos.view.PinView;
@@ -29,19 +30,23 @@ public class otp extends AppCompatActivity implements View.OnClickListener {
     private PinView pinView;
     private Button next;
     private  String otpsend;
+    private Button backmain;
     //  private TextView toptext;
 //  private EditText;
     private LinearLayout first, second;
     private EditText username, phoneno;
     private FirebaseAuth mAuth;
+    private ProgressBar progressBar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_otp);
         mAuth=FirebaseAuth.getInstance();
+        progressBar=(ProgressBar) findViewById(R.id.progrss);
         pinView = (PinView) findViewById(R.id.pinview);
         next = (Button) findViewById(R.id.button);
+        backmain=(Button)findViewById(R.id.otptoback);
         username = (EditText) findViewById(R.id.username);
         phoneno = (EditText) findViewById(R.id.userphoneno);
         first = (LinearLayout) findViewById(R.id.linearLayout1);
@@ -49,6 +54,15 @@ public class otp extends AppCompatActivity implements View.OnClickListener {
         first.setVisibility(View.VISIBLE);
 
         next.setOnClickListener(this);
+        backmain.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent k = new Intent(otp.this, onAppOpen.class);
+                k.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK|Intent.FLAG_ACTIVITY_CLEAR_TASK );
+                startActivity(k);
+                overridePendingTransition(R.anim.slide_in_left,R.anim.slide_out_right);
+            }
+        });
 
     }
     private void sendcode(String no)
@@ -91,6 +105,7 @@ public class otp extends AppCompatActivity implements View.OnClickListener {
       public void onVerificationCompleted(PhoneAuthCredential phoneAuthCredential) {
            String code=phoneAuthCredential.getSmsCode();
            pinView.setText(code);
+
       }
 
       @Override
@@ -106,10 +121,14 @@ public class otp extends AppCompatActivity implements View.OnClickListener {
             String name = username.getText().toString();
             String phone = phoneno.getText().toString();
             if (!TextUtils.isEmpty(name) && !TextUtils.isEmpty(phone) && phone.length() == 13) {
+                progressBar.setVisibility(View.VISIBLE);
                 first.setVisibility(View.GONE);
+
                 second.setVisibility(View.VISIBLE);
+
                 sendcode(phone);
                 next.setText("Verify");
+                progressBar.setVisibility(View.GONE);
             } else {
                 if (phone.length() < 13 || phone.length() > 13) {
                     if (phone.length() == 10) {
@@ -123,8 +142,11 @@ public class otp extends AppCompatActivity implements View.OnClickListener {
             }
 
 
-        } else if (next.getText().equals("Verify")) {
+        }
+
+        else if (next.getText().equals("Verify")) {
             String otp = pinView.getText().toString();
+            progressBar.setVisibility(View.VISIBLE);
                 verification(otp);
 
         }

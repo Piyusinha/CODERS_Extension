@@ -27,10 +27,10 @@ import okhttp3.Request;
 import okhttp3.Response;
 
 public class hackerranksite extends AppCompatActivity {
-    private List<hackerrankresponse> hackerrankresponseList;
+
     private RecyclerView hackerrankRecyclerView;
     private GridLayoutManager gridLayoutManager;
-    private  hackerrankadapter adapter;
+
     private ProgressBar progressBar;
  private Button mback;
 
@@ -42,13 +42,11 @@ public class hackerranksite extends AppCompatActivity {
         progressBar.setVisibility(View.VISIBLE);
         hackerrankRecyclerView=(RecyclerView) findViewById(R.id.hackerankrecy);
         hackerrankRecyclerView.setHasFixedSize(true);
-        new openurl().execute();
-        new parseJson().execute();
-        hackerrankresponseList =new ArrayList<>();
+
+
         gridLayoutManager =new GridLayoutManager(this,GridLayoutManager.VERTICAL);
         hackerrankRecyclerView.setLayoutManager(gridLayoutManager);
-        adapter =new hackerrankadapter(this ,hackerrankresponseList);
-        hackerrankRecyclerView.setAdapter(adapter);
+
         mback =(Button) findViewById(R.id.hackerrantoback);
         mback.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -61,85 +59,5 @@ public class hackerranksite extends AppCompatActivity {
             }
         });
     }
-    private class openurl extends AsyncTask<String,Void, String>
-    {
-        private static final String TAG = "openurl";
-        @Override
-        protected void onPostExecute(String s) {
-            super.onPostExecute(s);
-        }
 
-        @Override
-        protected String doInBackground(String... strings) {
-            try
-            {
-                URL url =new URL("http://3.219.6.94/phpcurl/hackerrank.php");
-                HttpURLConnection connection= (HttpURLConnection) url.openConnection();
-                connection.connect();
-                if( connection.getResponseCode() == HttpURLConnection.HTTP_OK ){
-                    InputStream is = connection.getInputStream();
-                }else{
-                    InputStream err = connection.getErrorStream();
-                }
-                Log.d(TAG, "doInBackground: done executing");
-                connection.disconnect();
-            }
-            catch (Exception e)
-            {
-                e.printStackTrace();
-            }
-            return  null;
-
-        }
-    }
-    private  class parseJson extends AsyncTask<String,Void,String>
-    {
-        @Override
-        protected void onPostExecute(String s) {
-            adapter.notifyDataSetChanged();
-            progressBar.setVisibility(View.GONE);
-        }
-
-        @Override
-        protected String doInBackground(String... strings) {
-            OkHttpClient client =new OkHttpClient();
-            Request request =new Request.Builder().url("http://3.219.6.94/phpcurl/hackerrank.json").build();
-            try {
-                Response response=client.newCall(request).execute();
-                JSONArray array= null;
-                try {
-                    array = new JSONArray(response.body().string());
-                } catch (JSONException e) {
-
-                }
-                for(int i=0;i<array.length();i++)
-                {
-
-                    JSONObject array1= null;
-                    try {
-
-
-                        array1 = array.getJSONObject(i);
-
-
-                            hackerrankresponse response1= null;
-//                       if(array1.getString("ended").equals("false")) {
-                           response1 = new hackerrankresponse(array1.getString("name"), array1.getString("description"), array1.getString("get_starttimeiso"), array1.getString("get_endtimeiso"), array1.getString("slug"));
-                           hackerrankresponseList.add(response1);
-//                       }
-
-                    } catch (JSONException e) {
-                        e.printStackTrace();
-                    }
-
-
-
-
-                }
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-            return null;
-        }
-    }
 }

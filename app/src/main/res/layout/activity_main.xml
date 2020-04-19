@@ -7,7 +7,7 @@
     android:background="@drawable/mainback1"
     tools:context=".MainActivity">
 <ImageView
-
+    android:visibility="gone"
     android:layout_height="40dp"
     android:layout_width="50dp"
     android:layout_marginTop="20dp"
@@ -16,6 +16,7 @@
 
 </ImageView>
     <Button
+        android:visibility="gone"
         android:layout_width="50dp"
         android:layout_height="50dp"
         android:layout_marginTop="20dp"
@@ -26,7 +27,7 @@
         />
 
     <ScrollView
-
+        android:visibility="visible"
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
         android:layout_alignParentLeft="true"
@@ -393,5 +394,13 @@
 
         </LinearLayout>
     </ScrollView>
+
+    <TextView
+        android:text="LOading"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/outputcheck">
+
+    </TextView>
 
 </RelativeLayout>

@@ -1,7 +1,9 @@
 package com.piyu.uidashboard;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.FloatRange;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
@@ -10,15 +12,33 @@ import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
+import com.piyu.uidashboard.ApiInterface.ApiInterface;
+import com.piyu.uidashboard.model.Application;
+import com.piyu.uidashboard.model.Results;
+
+
+import java.util.List;
+
+import io.reactivex.Observer;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.disposables.Disposable;
+import io.reactivex.schedulers.Schedulers;
+
 
 public class MainActivity extends AppCompatActivity {
     private static final String TAG = "MainActivity";
+
+    ApiInterface apiInterface;
     Button btn_profile, btn_hkr, btn_health, btn_goals, btn_finance, btn_comfort;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+
+
+
         btn_profile = findViewById(R.id.buttonprofile);
        Button logout=(Button)findViewById(R.id.maintologin);
         btn_hkr = findViewById(R.id.buttonphacker);
@@ -26,7 +46,33 @@ public class MainActivity extends AppCompatActivity {
 //        btn_goals = findViewById(R.id.buttongoals);
 //        btn_comfort = findViewById(R.id.buttoncomfort);
 //        btn_finance = findViewById(R.id.buttonfinance);
-        btn_profile.setOnClickListener(new View.OnClickListener() {
+        apiInterface=RetrofitClient.getClient(MainActivity.this).create(ApiInterface.class);
+        apiInterface.getResults().subscribeOn(Schedulers.io())
+
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Observer<Application>() {
+                    @Override
+                    public void onSubscribe(Disposable d) {
+
+                    }
+
+                    @Override
+                    public void onNext(Application results) {
+                        Log.d(TAG, "onNext: "+ results.getResults().getUpcoming().get(0).getName());
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+                        Log.e(TAG, "onError: "+e.getLocalizedMessage() );
+                    }
+
+                    @Override
+                    public void onComplete() {
+
+                    }
+                });
+
+    btn_profile.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Toast.makeText(MainActivity.this, "CodeChef", Toast.LENGTH_SHORT).show();
@@ -92,6 +138,15 @@ public class MainActivity extends AppCompatActivity {
 //            }
 //        });
     }
+
+    private void handleError(Throwable throwable) {
+        Log.d(TAG, "handleError: "+throwable.getLocalizedMessage());
+    }
+
+    private void handleResponse(List<Application> applications) {
+        Log.e(TAG, "handleResponse: "+applications.toString() );
+    }
+
 
     @Override
     protected void onStart() {

@@ -39,13 +39,7 @@ public class MainActivity extends AppCompatActivity {
 
 
 
-        btn_profile = findViewById(R.id.buttonprofile);
-       Button logout=(Button)findViewById(R.id.maintologin);
-        btn_hkr = findViewById(R.id.buttonphacker);
-        btn_health = findViewById(R.id.buttonhealth);
-//        btn_goals = findViewById(R.id.buttongoals);
-//        btn_comfort = findViewById(R.id.buttoncomfort);
-//        btn_finance = findViewById(R.id.buttonfinance);
+
         apiInterface=RetrofitClient.getClient(MainActivity.this).create(ApiInterface.class);
         apiInterface.getResults().subscribeOn(Schedulers.io())
 
@@ -72,80 +66,7 @@ public class MainActivity extends AppCompatActivity {
                     }
                 });
 
-    btn_profile.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Toast.makeText(MainActivity.this, "CodeChef", Toast.LENGTH_SHORT).show();
-                Intent k = new Intent(MainActivity.this, CodeChef.class);
-                k.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK |Intent.FLAG_ACTIVITY_CLEAR_TASK);
-                startActivity(k);
-                overridePendingTransition(R.anim.slide_in_right,R.anim.slide_out_left);
-            }
-        });
-         logout.setOnClickListener(new View.OnClickListener() {
-             @Override
-             public void onClick(View v) {
-                    FirebaseAuth.getInstance().signOut();
-                 Intent k=new Intent(MainActivity.this,otp.class);
-                 k.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK |Intent.FLAG_ACTIVITY_CLEAR_TASK);
-                 startActivity(k);
-                 overridePendingTransition(R.anim.slide_in_left,R.anim.slide_out_right);
-             }
-         });
-         btn_hkr.setOnClickListener(new View.OnClickListener() {
-             @Override
-             public void onClick(View v) {
-                 Toast.makeText(MainActivity.this, "HackerRank", Toast.LENGTH_SHORT).show();
-                 Intent k = new Intent(MainActivity.this, hackerranksite.class);
-                 k.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK |Intent.FLAG_ACTIVITY_CLEAR_TASK);
-                 startActivity(k);
-                 overridePendingTransition(R.anim.slide_in_right,R.anim.slide_out_left);
-             }
-         });
-//        btn_finance.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                Toast.makeText(MainActivity.this, "FINANCE", Toast.LENGTH_SHORT).show();
-//            }
-//        });
-//        btn_goals.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                Toast.makeText(MainActivity.this, "GOALS", Toast.LENGTH_SHORT).show();
-//            }
-//        });
-//        btn_comfort.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                Toast.makeText(MainActivity.this, "COMFORT", Toast.LENGTH_SHORT).show();
-//            }
-//        });
-        btn_health.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Toast.makeText(MainActivity.this, "Code Forces", Toast.LENGTH_SHORT).show();
-                Log.d(TAG, "onClick: health ");
-                Intent k1 = new Intent(MainActivity.this, CodeForces.class);
-                startActivity(k1);
-                k1.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK |Intent.FLAG_ACTIVITY_CLEAR_TASK);
-                overridePendingTransition(R.anim.slide_in_right,R.anim.slide_out_left);
-            }
-        });
-//        btn_education.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                Toast.makeText(MainActivity.this, "EDUCATION", Toast.LENGTH_SHORT).show();
-//            }
-//        });
-    }
-
-    private void handleError(Throwable throwable) {
-        Log.d(TAG, "handleError: "+throwable.getLocalizedMessage());
-    }
-
-    private void handleResponse(List<Application> applications) {
-        Log.e(TAG, "handleResponse: "+applications.toString() );
-    }
+        }
 
 
     @Override
